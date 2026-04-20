@@ -215,6 +215,87 @@
             color: #C9A84C;
         }
 
+        /* RSVP Form */
+        .rsvp-section {
+            padding: clamp(2rem, 8vw, 4em) clamp(1rem, 4vw, 2em);
+            background-color: #F5F0E8;
+        }
+        .rsvp-title {
+            font-size: clamp(3rem, 7vw, 6.25rem);
+            color: #C9A84C;
+            margin: 0 0 clamp(1rem, 3vw, 2rem) 0;
+        }
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(0.8rem, 2vw, 1.5rem);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .rsvp-radio-group {
+            text-align: left;
+            width: 100%;
+            font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+        }
+        .rsvp-radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            cursor: pointer;
+        }
+        .rsvp-radio-group input[type="radio"] {
+            accent-color: #C9A84C;
+            width: 1.2em;
+            height: 1.2em;
+            cursor: pointer;
+        }
+        .rsvp-textarea {
+            width: 100%;
+            border: 2px solid #3D5C3A;
+            border-radius: 16px;
+            padding: 0.6em 1em;
+            font-family: 'Nunito', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: #3D5C3A;
+            background-color: #fff;
+            resize: none;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .rsvp-textarea:focus {
+            border-color: #C9A84C;
+        }
+        .rsvp-submit {
+            background-color: #C9A84C;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 0.6em 2.5em;
+            font-family: 'Nunito', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .rsvp-submit:hover {
+            background-color: #3D5C3A;
+        }
+        .rsvp-success {
+            display: none;
+            color: #3D5C3A;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            margin-top: 1em;
+            animation: fadeIn 0.5s ease;
+        }
+        .rsvp-success.show { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
         /* SVG plane path */
         .planePath {
             stroke: #C9A84C;
@@ -273,17 +354,17 @@
     </div>
 
     <!-- Cover -->
-    <div class="background-container">
+    <div id="section-cover" class="background-container">
         <div class="content">
             <h1 class="animate-on-scroll">Ернұр</h1>
             <h1 class="animate-on-scroll">мен</h1>
             <h1 class="animate-on-scroll">Сандуғаш</h1>
-            <p class="animate-on-scroll" style="margin-top: clamp(0.5rem, 2vw, 1.5rem);">28.06.2026</p>
+            <p class="animate-on-scroll" style="margin-top: clamp(0.5rem, 2vw, 1.5rem);">27.06.2026</p>
         </div>
     </div>
 
     <!-- Invitation Text -->
-    <div class="invitation-container">
+    <div id="section-invitation" class="invitation-container">
         <p class="invitation-subtitle animate-on-scroll">Құрметті ағайын-туыс, бауырлар, құда-жекжат, дос-жарандар, әріптестер!</p>
         <br><br><br>
         <p class="invitation-body animate-on-scroll">Сіздерді</p>
@@ -310,10 +391,10 @@
     </svg>
 
     <!-- Calendar Section -->
-    <div class="calendar-section">
+    <div id="section-calendar" class="calendar-section">
         <p class="calendar-title animate-on-scroll">Той салтанаты</p>
         <!-- TODO: Replace with wedding date and time in Kazakh -->
-        <p class="calendar-date animate-on-scroll">28.06.2026 жыл<br>сағат 18:00 де</p>
+        <p class="calendar-date animate-on-scroll">27.06.2026 жыл<br>сағат 18:00 де</p>
         <!-- TODO: Fill in the correct month calendar and highlight the wedding day -->
         <div class="calendar-container animate-on-scroll">
             <table>
@@ -327,35 +408,35 @@
                     <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
                     <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
                     <tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
-                    <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td class="highlighted-day">28</td></tr>
-                    <tr><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td class="highlighted-day">27</td><td>28</td></tr>
+                    <tr><td>29</td><td>30</td><td></td><td></td><td></td><td></td><td></td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
     <!-- Address Info -->
-    <div class="address-info">
+    <div id="section-address" class="address-info">
         <p class="address-title animate-on-scroll">Мекен жайымыз:</p>
         <!-- TODO: Replace with city and street address -->
         <p class="address-subtitle animate-on-scroll">Шалқар<br>Айтеке Би, 26</p>
         <!-- TODO: Replace with venue name -->
-        <p class="address-restaurant animate-on-scroll">"Әсем" мейрамханасы</p>
+        <p class="address-restaurant animate-on-scroll">"Ақ Отау" мейрамханасы</p>
     </div>
 
     <!-- Instagram link -->
     <div style="margin: clamp(1rem, 4vw, 2em) auto; text-align: center;">
-        <a href="https://www.instagram.com/asem_meiramhanasy_shalkar/" target="_blank" rel="noopener"
+        <a href="https://www.instagram.com/restaurant_akotay/" target="_blank" rel="noopener"
            style="display: inline-flex; align-items: center; gap: 0.5em; text-decoration: none; color: #3D5C3A; font-family: 'Cassandra', sans-serif; font-size: clamp(1.5rem, 3vw, 3rem);">
             <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="#C9A84C">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
             </svg>
-            @asem_meiramhanasy_shalkar
+            @restaurant_akotay
         </a>
     </div>
 
     <!-- Countdown Section -->
-    <div class="countdown-section">
+    <div id="section-countdown" class="countdown-section">
         <p class="countdown-owners-title animate-on-scroll">Той иелері:</p>
         <!-- TODO: Replace with the names of the hosts (parents of groom & bride) -->
         <p class="countdown-owners-names animate-on-scroll">(Cәрсен)-Мәриям</p>
@@ -384,12 +465,35 @@
         </div>
     </div>
 
+    <!-- RSVP Section -->
+    <div id="section-rsvp" class="rsvp-section animate-on-scroll">
+        <p class="rsvp-title">Қатысасыз ба?</p>
+        <form class="rsvp-form" id="rsvp-form">
+            <div class="rsvp-radio-group">
+                <label><input type="radio" name="attendance" value="Иә барамын" required> Иә барамын</label>
+                <label><input type="radio" name="attendance" value="Жұбайыммен барамыз"> Жұбайыммен барамыз</label>
+                <label><input type="radio" name="attendance" value="Бара алмаймын"> Бара алмаймын</label>
+            </div>
+            <textarea
+                class="rsvp-textarea"
+                name="message"
+                id="rsvp-message"
+                rows="3"
+                maxlength="100"
+                placeholder="Есіміңізді жазыңыз"
+                required
+            ></textarea>
+            <button type="submit" class="rsvp-submit">Жіберу</button>
+            <p class="rsvp-success" id="rsvp-success">Жауабыңызға рахмет! 🎉</p>
+        </form>
+    </div>
+
     <br><br><br><br><br><br><br><br><br>
 
     <script>
         // TODO: Replace with the actual wedding date/time and timezone offset
         // Format: 'YYYY-MM-DDTHH:00:00+05:00'
-        const targetDate = new Date('2026-06-28T18:00:00+05:00').getTime();
+        const targetDate = new Date('2026-06-27T18:00:00+05:00').getTime();
 
         const daysSpan    = document.getElementById('days');
         const hoursSpan   = document.getElementById('hours');
@@ -431,6 +535,82 @@
             }, { root: null, rootMargin: '0px', threshold: 0.1 });
 
             document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+        });
+
+        // Auto-scroll through sections
+        const sections = [
+            'section-cover',
+            'section-invitation',
+            'section-calendar',
+            'section-address',
+            'section-countdown',
+            'section-rsvp',
+        ];
+
+        let autoScrollStopped = false;
+        let autoScrollIndex = 1; // skip cover, user is already there
+        let autoScrollTimer = null;
+
+        // Smooth scroll with cubic ease-in-out
+        function smoothScrollTo(targetY, duration) {
+            const startY = window.scrollY;
+            const diff = targetY - startY;
+            const startTime = performance.now();
+
+            function easeInOutCubic(t) {
+                return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            }
+
+            function step(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                window.scrollTo(0, startY + diff * easeInOutCubic(progress));
+                if (progress < 1) requestAnimationFrame(step);
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        function scrollToNext() {
+            if (autoScrollIndex >= sections.length) return;
+            const el = document.getElementById(sections[autoScrollIndex]);
+            if (el) {
+                const targetY = el.getBoundingClientRect().top + window.scrollY;
+                smoothScrollTo(targetY, 1800); // 1.8s smooth scroll duration
+            }
+            autoScrollIndex++;
+            if (autoScrollIndex < sections.length) {
+                autoScrollTimer = setTimeout(scrollToNext, 4000);
+            }
+        }
+
+        // Start auto-scroll 1.5 seconds after load
+        autoScrollTimer = setTimeout(scrollToNext, 1500);
+
+        // RSVP form submission
+        // TODO: Replace with your own Google Apps Script URL
+        const RSVP_URL = 'https://script.google.com/macros/s/AKfycbxGwGlebB6-5E0EA7LnMmhp2sG0SmM63aEcIEYlHBYHffMJrWb445Fmrk0VN1hr--to/exec';
+
+        document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const attendance = document.querySelector('[name="attendance"]:checked');
+            const message = document.getElementById('rsvp-message');
+            if (!attendance || !message.value.trim()) return;
+
+            const body = `attendance=${encodeURIComponent(attendance.value)}&message=${encodeURIComponent(message.value.trim())}`;
+
+            fetch(RSVP_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                mode: 'no-cors',
+                body,
+            }).catch(err => console.error('RSVP error:', err));
+
+            attendance.checked = false;
+            message.value = '';
+            const successEl = document.getElementById('rsvp-success');
+            successEl.classList.add('show');
+            setTimeout(() => successEl.classList.remove('show'), 4000);
         });
 
         // Music play/pause
