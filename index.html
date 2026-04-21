@@ -357,7 +357,7 @@
     <div id="section-cover" class="background-container">
         <div class="content">
             <h1 class="animate-on-scroll">Ернұр</h1>
-            <h1 class="animate-on-scroll">мен</h1>
+            <h1 class="animate-on-scroll">&amp;</h1>
             <h1 class="animate-on-scroll">Сандуғаш</h1>
             <p class="animate-on-scroll" style="margin-top: clamp(0.5rem, 2vw, 1.5rem);">27.06.2026</p>
         </div>
@@ -370,7 +370,7 @@
         <p class="invitation-body animate-on-scroll">Сіздерді</p>
         <br>
         <!-- TODO: Replace with groom & bride names -->
-        <p class="invitation-name animate-on-scroll">Ернұр - Сандуғаштың</p>
+        <p class="invitation-name animate-on-scroll">баламыз Ернұр мен келініміз Сандуғаштың</p>
         <br>
         <p class="invitation-body animate-on-scroll">шаңырақ көтеру тойына арналып жайылған ақ дастарханымыздың қадірлі қонағымыз болуға шақырамыз!</p>
     </div>
@@ -419,7 +419,7 @@
     <div id="section-address" class="address-info">
         <p class="address-title animate-on-scroll">Мекен жайымыз:</p>
         <!-- TODO: Replace with city and street address -->
-        <p class="address-subtitle animate-on-scroll">Шалқар<br>Айтеке Би, 26</p>
+        <p class="address-subtitle animate-on-scroll">Шалқар</p>
         <!-- TODO: Replace with venue name -->
         <p class="address-restaurant animate-on-scroll">"Ақ Отау" мейрамханасы</p>
     </div>
@@ -547,6 +547,9 @@
             'section-rsvp',
         ];
 
+        // Sections that should be slowly scrolled through at reading speed (px/sec)
+        const slowScrollSections = { 'section-invitation': 70 };
+
         let autoScrollStopped = false;
         let autoScrollIndex = 1; // skip cover, user is already there
         let autoScrollTimer = null;
@@ -571,16 +574,53 @@
             requestAnimationFrame(step);
         }
 
+        // Slowly scroll through a section at reading speed, then call onComplete
+        function slowScrollThrough(el, pixelsPerSec, onComplete) {
+            const startY = window.scrollY;
+            // scroll until the bottom of the section is near the bottom of the viewport
+            const endY = el.getBoundingClientRect().bottom + window.scrollY - window.innerHeight * 0.15;
+            const distance = endY - startY;
+            if (distance <= 0) { onComplete(); return; }
+
+            const duration = (distance / pixelsPerSec) * 1000;
+            const startTime = performance.now();
+
+            function step(now) {
+                const progress = Math.min((now - startTime) / duration, 1);
+                window.scrollTo(0, startY + distance * progress); // linear = steady reading pace
+                if (progress < 1) requestAnimationFrame(step);
+                else onComplete();
+            }
+            requestAnimationFrame(step);
+        }
+
         function scrollToNext() {
             if (autoScrollIndex >= sections.length) return;
-            const el = document.getElementById(sections[autoScrollIndex]);
-            if (el) {
-                const targetY = el.getBoundingClientRect().top + window.scrollY;
-                smoothScrollTo(targetY, 1800); // 1.8s smooth scroll duration
-            }
+            const sectionId = sections[autoScrollIndex];
+            const el = document.getElementById(sectionId);
             autoScrollIndex++;
-            if (autoScrollIndex < sections.length) {
+
+            if (!el) {
                 autoScrollTimer = setTimeout(scrollToNext, 4000);
+                return;
+            }
+
+            const speed = slowScrollSections[sectionId];
+            if (speed) {
+                // first snap to the top of the section, then slowly scroll through it
+                const topY = el.getBoundingClientRect().top + window.scrollY;
+                smoothScrollTo(topY, 1800);
+                setTimeout(() => {
+                    slowScrollThrough(el, speed, () => {
+                        autoScrollTimer = setTimeout(scrollToNext, 2000);
+                    });
+                }, 1900); // wait for the snap scroll to finish
+            } else {
+                const targetY = el.getBoundingClientRect().top + window.scrollY;
+                smoothScrollTo(targetY, 1800);
+                if (autoScrollIndex < sections.length) {
+                    autoScrollTimer = setTimeout(scrollToNext, 4000);
+                }
             }
         }
 
